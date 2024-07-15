@@ -19,7 +19,7 @@ class MasterAgent:
         writer_agent = WriterAgent()
         critique_agent = CritiqueAgent()
         designer_agent = DesignerAgent(self.output_dir)
-        editor_agent = EditorAgent(layout)
+        # editor_agent = EditorAgent(layout)
         publisher_agent = PublisherAgent(self.output_dir)
 
         # Define a Langchain graph
