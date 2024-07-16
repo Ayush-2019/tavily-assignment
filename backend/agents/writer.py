@@ -40,10 +40,10 @@ class WriterAgent:
                        f"Query or Topic: {query}"
 
                        
-                       f"{sources}\n"
-                       f"Your task is to write 5 tweets for me about the provided query or "
+                       f"Source: {sources}\n"
+                       f"Your sole purpose is to choose 10 most relevant tweets for a given query"
                        f"topic based on the sources.\n "
-                       f"Please return nothing but a JSON in the following format:\n"
+                       f"Please return nothing but an array of 5 JSON objects in the following format:\n"
                        f"{sample_json}\n "
 
         }]

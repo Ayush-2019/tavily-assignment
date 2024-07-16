@@ -19,14 +19,15 @@ class CuratorAgent:
                        f"query\n "
                        f"Here is a list of articles:\n"
                        f"{sources}\n"
-                       f"Please return nothing but a list of the strings of the json and the twitter username in this structure: [json1,"
+                       f"Please return nothing but a list of 10 json each having a tweet and the username who made the tweet in this structure: [json1,"
                        f"json2,json3,json4,json5,json6,json7,json8,json9,json10].\n "
         }]
 
         lc_messages = convert_openai_messages(prompt)
         response = ChatOpenAI(model='gpt-3.5-turbo', max_retries=1).invoke(lc_messages).content
         chosen_sources = response
-        return sources
+        print("curator response: ", chosen_sources)
+        return chosen_sources
 
     def run(self, article: dict):
         article["sources"] = self.curate_sources(article["query"], article["sources"])
