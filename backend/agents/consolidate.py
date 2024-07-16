@@ -3,7 +3,7 @@ from langchain.adapters.openai import convert_openai_messages
 from langchain_openai import ChatOpenAI
 
 
-class CuratorAgent:
+class ConsolidateAgent:
     def __init__(self):
         pass
 

@@ -10,19 +10,6 @@ sample_json = """
 }
 """
 
-sample_revise_json = """
-{
-    "paragraphs": [
-        "paragraph 1",
-        "paragraph 2",
-        "paragraph 3",
-        "paragraph 4",
-        "paragraph 5",
-    ],
-    "message": "message to the critique"
-}
-"""
-
 
 class WriterAgent:
     def __init__(self):
@@ -54,35 +41,8 @@ class WriterAgent:
         }
 
         response = ChatOpenAI(model='gpt-4-0125-preview', max_retries=1, model_kwargs=optional_params).invoke(lc_messages).content
+        # print("writer response: ", re)
         return json.loads(response)
-
-    # def revise(self, article: dict):
-        prompt = [{
-            "role": "system",
-            "content": "You are a newspaper editor. Your sole purpose is to edit a well-written article about a "
-                       "topic based on given critique\n "
-        }, {
-            "role": "user",
-            "content": f"{str(article)}\n"
-                        f"Your task is to edit the article based on the critique given.\n "
-                        f"Please return json format of the 'paragraphs' and a new 'message' field"
-                        f"to the critique that explain your changes or why you didn't change anything.\n"
-                        f"please return nothing but a JSON in the following format:\n"
-                        f"{sample_revise_json}\n "
-
-        }]
-
-        lc_messages = convert_openai_messages(prompt)
-        optional_params = {
-            "response_format": {"type": "json_object"}
-            
-        }
-
-        response = ChatOpenAI(model='gpt-4-0125-preview', max_retries=1, model_kwargs=optional_params).invoke(lc_messages).content
-        response = json.loads(response)
-        print(f"For article: {article['title']}")
-        print(f"Writer Revision Message: {response['message']}\n")
-        return response
 
     def run(self, article: dict):
         article.update(self.writer(article["query"], article["sources"]))
